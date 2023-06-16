@@ -42,7 +42,7 @@ router.get('/:photoId/details', async (req, res) => {
 })
 router.get('/:photoId/delete', async (req, res) => {
     const photoId = req.params.photoId;
- const photo = await photoManager.getOne(photoId).lean()
+    const photo = await photoManager.getOne(photoId).lean()
     try {
         // !!! Optional chaining (?.) becuse we may haven't user!!!
         const isOwner = req.user?._id == photo.owner?._id;
@@ -53,8 +53,39 @@ router.get('/:photoId/delete', async (req, res) => {
         }
 
     } catch (err) {
-       
+
         res.render(`photos/details`, { photo, error: 'Unseccessful photo deletion' })
+    }
+
+})
+router.get('/:photoId/edit', async (req, res) => {
+    const photoId = req.params.photoId;
+   const photo = await photoManager.getOne(photoId).lean()
+    try {
+     
+        res.render('photos/edit', { photo })
+    
+    } catch (err) {
+
+    res.render(`photos/edit`, { photo, error: getErrorMessage(err) })
+}
+
+})
+router.post('/:photoId/edit', async (req, res) => {
+    const photoId = req.params.photoId;
+    const photo = req.body;
+  
+    try {
+        // !!! Optional chaining (?.) becuse we may haven't user!!!
+
+            await photoManager.updateOne(photoId, photo)
+
+            res.redirect(`/photos/${photoId}/details`)
+        
+
+    } catch (err) {
+
+        res.render(`photos/details`, { photo, error: 'Unseccessful photo edition' })
     }
 
 })
