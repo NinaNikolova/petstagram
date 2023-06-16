@@ -12,3 +12,5 @@ const photo = await Photo.findById(photoId);
 photo.comments.push(commentData);
 return photo.save()
 }
+// !!! very important query!!!
+exports.getByOwner=(userId)=>Photo.find({owner: userId})

@@ -36,3 +36,4 @@ async function generateToken(user) {
     const token = await jwt.sign(payload, SECRET, {expiresIn: '2d'});
     return token;
 }
+

@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true,'Password is required!'],
     }
+   
 })
 userSchema.virtual('repass')
     .set(function (value) {
