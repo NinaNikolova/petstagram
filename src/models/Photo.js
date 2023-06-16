@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = require('./User')
+
 
 const photoSchema = new mongoose.Schema({
     name: {
@@ -24,7 +24,7 @@ const photoSchema = new mongoose.Schema({
     },
     owner: {
         type: mongoose.Types.ObjectId,
-        ref: User
+        ref: 'User'
     }
 })
 
