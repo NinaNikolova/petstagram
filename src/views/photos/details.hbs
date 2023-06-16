@@ -118,6 +118,10 @@
                         </div>
                     </div>
                 </div>
+                {{!-- !!! IF YOU ARE NOT --}}
+                {{!-- !!! isAuthenticated is in res.locals.isAuthenticated and accessable in all views --}}
+                {{#if isAuthenticated}}
+                {{#unless isOwner}}
                 <div class="addComments">
                     <!-- Start Add Comments Form -->
                     <form method="#" action="#">
@@ -127,6 +131,8 @@
                         <button type="submit">Post</button>
                     </form>
                 </div>
+                {{/unless}}
+                 {{/if}}
             </div>
         </div>
     </div>

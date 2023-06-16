@@ -32,7 +32,8 @@ router.get('/:photoId/details', async (req, res) => {
   
     try {
         const photo = await photoManager.getOne(photoId).lean()
-          const isOwner = req.user._id==photo.owner._id;
+        // !!! Optional chaining (?.) becuse we may haven't user!!!
+          const isOwner = req.user?._id==photo.owner._id;
         res.render('photos/details', {photo, isOwner})
     } catch (err) {
         res.render('photos/details', { error: getErrorMessage(err) })
