@@ -6,7 +6,7 @@ const {isAuth} = require('../middlewares/authMiddleware');
 router.get('/', async (req, res) => {
     try {
         const photos = await photoManager.getAll().lean()
-        console.log(photos)
+  
         res.render('photos', { photos })
     } catch (err) {
         res.render('photos', { error: getErrorMessage(err) })
