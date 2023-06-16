@@ -2,7 +2,8 @@ const router = require('express').Router();
 const userManager = require('../managers/userManager');
 const { TOKEN_KEY } = require('../config/config');
 const {getErrorMessage} = require('../utils/errorHelpers');
-const photoManager = require('../managers/photoManager')
+const photoManager = require('../managers/photoManager');
+const {isAuth} = require('../middlewares/authMiddleware');
 
 router.get('/login', (req, res) => {
     res.render('users/login')
@@ -38,7 +39,7 @@ router.post('/register', async (req, res) => {
 
 
 })
-router.get('/profile', async(req, res) => {
+router.get('/profile',isAuth, async(req, res) => {
     
     const userId = req.user._id;
    const photos = await photoManager.getByOwner(userId).lean()
