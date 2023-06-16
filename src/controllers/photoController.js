@@ -29,9 +29,11 @@ router.post('/create', async (req, res) => {
 })
 router.get('/:photoId/details', async (req, res) => {
     const photoId = req.params.photoId;
+  
     try {
         const photo = await photoManager.getOne(photoId).lean()
-        res.render('photos/details', {photo})
+          const isOwner = req.user._id==photo.owner._id;
+        res.render('photos/details', {photo, isOwner})
     } catch (err) {
         res.render('photos/details', { error: getErrorMessage(err) })
     }
