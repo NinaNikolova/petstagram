@@ -5,6 +5,7 @@ const { getErrorMessage } = require('../utils/errorHelpers');
 router.get('/', async (req, res) => {
     try {
         const photos = await photoManager.getAll().lean()
+        console.log(photos)
         res.render('photos', { photos })
     } catch (err) {
         res.render('photos', { error: getErrorMessage(err) })
@@ -32,6 +33,7 @@ router.get('/:photoId/details', async (req, res) => {
 
     try {
         const photo = await photoManager.getOne(photoId).lean()
+ 
         // !!! Optional chaining (?.) becuse we may haven't user!!!
         const isOwner = req.user?._id == photo.owner._id;
         res.render('photos/details', { photo, isOwner })
@@ -80,6 +82,24 @@ router.post('/:photoId/edit', async (req, res) => {
         // !!! Optional chaining (?.) becuse we may haven't user!!!
 
             await photoManager.updateOne(photoId, photo)
+
+            res.redirect(`/photos/${photoId}/details`)
+        
+
+    } catch (err) {
+
+        res.render(`photos/details`, { photo, error: 'Unable to edit photo' })
+    }
+
+})
+router.post('/:photoId/comments', async (req, res) => {
+    const photoId = req.params.photoId;
+    const {text }= req.body;
+    const userId = req.user._id;
+    try {
+        // !!! Optional chaining (?.) becuse we may haven't user!!!
+
+            await photoManager.addComment(photoId, {userId, text})
 
             res.redirect(`/photos/${photoId}/details`)
         
