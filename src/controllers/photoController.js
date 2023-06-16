@@ -60,9 +60,10 @@ router.get('/:photoId/delete', async (req, res) => {
 })
 router.get('/:photoId/edit', async (req, res) => {
     const photoId = req.params.photoId;
-   const photo = await photoManager.getOne(photoId).lean()
+    let photo;
+
     try {
-     
+     photo = await photoManager.getOne(photoId).lean()
         res.render('photos/edit', { photo })
     
     } catch (err) {
@@ -85,7 +86,7 @@ router.post('/:photoId/edit', async (req, res) => {
 
     } catch (err) {
 
-        res.render(`photos/details`, { photo, error: 'Unseccessful photo edition' })
+        res.render(`photos/details`, { photo, error: 'Unable to edit photo' })
     }
 
 })
