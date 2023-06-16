@@ -5,7 +5,7 @@ const { getErrorMessage } = require('../utils/errorHelpers');
 router.get('/', async (req, res) => {
     try {
         const photos = await photoManager.getAll().lean()
-        res.render('photos', {photos})
+        res.render('photos', { photos })
     } catch (err) {
         res.render('photos', { error: getErrorMessage(err) })
     }
@@ -29,14 +29,32 @@ router.post('/create', async (req, res) => {
 })
 router.get('/:photoId/details', async (req, res) => {
     const photoId = req.params.photoId;
-  
+
     try {
         const photo = await photoManager.getOne(photoId).lean()
         // !!! Optional chaining (?.) becuse we may haven't user!!!
-          const isOwner = req.user?._id==photo.owner._id;
-        res.render('photos/details', {photo, isOwner})
+        const isOwner = req.user?._id == photo.owner._id;
+        res.render('photos/details', { photo, isOwner })
     } catch (err) {
         res.render('photos/details', { error: getErrorMessage(err) })
+    }
+
+})
+router.get('/:photoId/delete', async (req, res) => {
+    const photoId = req.params.photoId;
+ const photo = await photoManager.getOne(photoId).lean()
+    try {
+        // !!! Optional chaining (?.) becuse we may haven't user!!!
+        const isOwner = req.user?._id == photo.owner?._id;
+        if (isOwner) {
+            await photoManager.deleteOne(photoId)
+
+            res.redirect('/photos')
+        }
+
+    } catch (err) {
+       
+        res.render(`photos/details`, { photo, error: 'Unseccessful photo deletion' })
     }
 
 })
