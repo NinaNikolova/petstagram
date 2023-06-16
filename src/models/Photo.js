@@ -28,9 +28,10 @@ const photoSchema = new mongoose.Schema({
     },
     comments: [
         {
-            userId: {
+            user: {
                 type: mongoose.Types.ObjectId,
                 required: true,
+                ref:"User"
             },
             text: {
                 type: String,

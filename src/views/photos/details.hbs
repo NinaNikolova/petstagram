@@ -70,26 +70,14 @@
                     </div>
 
                     <div class="comments">
-                        {{#each photo.comments}}
+
                         <div class="comments-top">
-                            <div class="userDetails">
-                                <div class="comment-data">
-                                    <div class="profilepic">
-                                        <div class="profile_img">
-                                            <div class="image">
-                                                <!-- User Profile Image -->
-                                                <img src="/images/person.png" alt="img8">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--User's username-->
-                                    <p><b>{{this.username}}</b>- {{this.text}}</p>
-                                </div>
-                            </div>
-
+                            {{#each photo.comments}}
+                    {{>comment}}
+                    {{else}}
+                            {{/each}}
                         </div>
-                        {{/each}}
+
                     </div>
                 </div>
             </div>
@@ -100,7 +88,8 @@
             <div class="addComments">
                 <!-- Start Add Comments Form -->
                 <form method="post" action="/photos/{{photo._id}}/comments">
-                    <textarea id="comment-textarea" name="text" cols="40" rows="10" placeholder="Add comment..."></textarea>
+                    <textarea id="comment-textarea" name="text" cols="40" rows="10"
+                        placeholder="Add comment..."></textarea>
                     <!-- Post Comments Button -->
                     <button type="submit">Post</button>
                 </form>
