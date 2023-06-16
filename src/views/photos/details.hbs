@@ -15,7 +15,7 @@
                                 <div class="profilepic">
                                     <div class="profile_img">
                                         <div class="image">
-                                            <img src="/static/images/person.png" alt="img8">
+                                            <img src="/images/person.png" alt="img8">
                                         </div>
                                     </div>
                                 </div>
@@ -25,23 +25,23 @@
                                 <!-- Link to User Profile Details Page -->
                                 <p>
                                     <!-- User's username -->
-                                    MayaM
+                                    {{photo.owner.username}}
                                 </p>
                                 <!-- photo's location -->
-                                <span>Bansko, Bulgaria</span>
+                                <span>{{photo.location}}</span>
 
                                 <!-- IF the viewer is the creator of the photo -->
                                 <div class="edit-delete-btns">
 
                                     <!-- Edit Pet Photo -->
-                                    <a href="#">
-                                        <img class="edit-img" src="/static/images/edit-pen-icon-6.jpg"
+                                    <a href="/photos/{{photo._id}}/edit">
+                                        <img class="edit-img" src="/images/edit-pen-icon-6.jpg"
                                             alt="edit button">
                                     </a>
 
                                     <!--Delete Pet Photo -->
-                                    <a href="#">
-                                        <img class="bin-img" src="/static/images/icon-remove-22.jpg" alt="bin button">
+                                    <a href="/photos/{{photo._id}}/delete">
+                                        <img class="bin-img" src="/images/icon-remove-22.jpg" alt="bin button">
                                     </a>
                                 </div>
 
@@ -53,7 +53,7 @@
                     <!-- Start Pet Photo -->
                     <div class="imgBx">
                         <!-- Pet Photo -->
-                        <img src="/static/images/axolotl.jpeg" alt="post" class="cover">
+                        <img src="{{photo.image}}" alt="{{photo.name}}" class="cover">
                     </div>
 
 
@@ -78,7 +78,7 @@
                                             <div class="profile_img">
                                                 <div class="image">
                                                     <!-- User Profile Image -->
-                                                    <img src="/static/images/person.png" alt="img8">
+                                                    <img src="/images/person.png" alt="img8">
                                                 </div>
                                             </div>
                                         </div>
@@ -93,7 +93,7 @@
                                             <div class="profile_img">
                                                 <div class="image">
                                                     <!-- User Profile Image -->
-                                                    <img src="/static/images/person.png" alt="img8">
+                                                    <img src="/images/person.png" alt="img8">
                                                 </div>
                                             </div>
                                         </div>
@@ -108,7 +108,7 @@
                                             <div class="profile_img">
                                                 <div class="image">
                                                     <!-- User Profile Image -->
-                                                    <img src="/static/images/person.png" alt="img8">
+                                                    <img src="/images/person.png" alt="img8">
                                                 </div>
                                             </div>
                                         </div>

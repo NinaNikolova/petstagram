@@ -27,5 +27,15 @@ router.post('/create', async (req, res) => {
     }
 
 })
+router.get('/:photoId/details', async (req, res) => {
+    const photoId = req.params.photoId;
+    try {
+        const photo = await photoManager.getOne(photoId).lean()
+        res.render('photos/details', {photo})
+    } catch (err) {
+        res.render('photos/details', { error: getErrorMessage(err) })
+    }
+
+})
 
 module.exports = router;
