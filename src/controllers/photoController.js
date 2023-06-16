@@ -94,14 +94,15 @@ router.post('/:photoId/edit',isAuth,  async (req, res) => {
     }
 
 })
-router.post('/:photoId/comments',isAuth,  async (req, res) => {
+router.post('/:photoId/comments', isAuth,  async (req, res) => {
     const photoId = req.params.photoId;
-    const {text }= req.body;
+    const {text}= req.body;
     const user = req.user._id;
+    let photo;
     try {
         // !!! Optional chaining (?.) becuse we may haven't user!!!
 
-            await photoManager.addComment(photoId, {user, text})
+           photo =  await photoManager.addComment(photoId, {user, text})
 
             res.redirect(`/photos/${photoId}/details`)
         
